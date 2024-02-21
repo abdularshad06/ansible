@@ -1,7 +1,7 @@
 # ansible
 Learning Ansible
 
-
+Steps to Setup and Start VMs
 vagrant up ansible-controller
 sshd_config --> PasswordAuthentication = yes
 vagrant ssh ansible-controller
