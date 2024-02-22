@@ -21,6 +21,13 @@ Install EPEL and install python3.11 for ansible pre-requisites.
 
  sudo dnf install epel-release -y
 
+===================================================================================================================
+
+Install Python3.11 on CentOS 8
+
+https://tecadmin.net/install-python-3-11-on-centos-fedora/
+
+Issue :-
 
   Problem: conflicting requests
   - nothing provides python(abi) = 3.11 needed by ansible-8.3.0-1.el8.noarch
@@ -29,19 +36,111 @@ Install EPEL and install python3.11 for ansible pre-requisites.
 (try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
 
 
-Install Python3.11 by below URL
-
-https://tecadmin.net/install-python-3-11-on-centos-fedora/
-
-$ sudo dnf install gcc openssl-devel bzip2-devel sqlite-devel wget -y
+$ sudo dnf install gcc openssl-devel bzip2-devel sqlite-devel wget libffi-devel -y
 $ cd /usr/src 
-$ wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz 
-$ tar xzf Python-3.11.3.tgz 
+$ sudo wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz 
+$ sudo tar xzf Python-3.11.3.tgz 
 $ cd Python-3.11.3 
 $ sudo ./configure --enable-optimizations 
 $ sudo make altinstall 
 $ python3.11 -V 
 $ sudo rm /usr/src/Python-3.11.3.tgz 
+$ sudo dnf install python3-pip -y
+
+===================================================================================================================
+
+-----------------------------------------
+https://docs.python.org/3/tutorial/venv.html
+------------------------------------------
+python virtual env. create :-
+
+$ python -m venv tutorial-env
+
+Activate Virtual Environment :-
+
+$ source tutorial-env/bin/activate
+
+Check Python Version :-
+$ python --version
+
+To deactivate a virtual environment, type:-
+
+$ deactivate
+
+
+===================================================================================================================
+
+Install Ansible on CentOS 8 :-
+
+ $ sudo dnf groupinstall  "Development Tools" -y
+ $ sudo dnf install epel-release -y
+ $ sudo pip3 install --upgrade --ignore-installed pip setuptools
+ $ sudo python3 -m pip install ansible
+ $ ansible --version
+
+
+Error :-
+(tutorial-env) [vagrant@ansible-controller ~]$ ansible --version
+ERROR: No module named '_ctypes'
+
+Resolution :-
+Note : if showing Error --> ERROR: No module named '_ctypes'
+then 
+sudo yum install libffi-devel
+and reinstall python3.11
+
+wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz 
+tar xzf Python-3.11.3.tgz 
+cd Python-3.11.3 
+./configure --enable-optimizations 
+sudo make altinstall 
+python3.11 -V
+ansible --version
+
+Error :-
+[vagrant@ansible-controller Python-3.11.3]$ ansible --version
+[DEPRECATION WARNING]: Ansible will require Python 3.8 or newer on the controller starting with Ansible 2.12. Current version: 3.6.8
+(default, Sep 10 2021, 09:13:53) [GCC 8.5.0 20210514 (Red Hat 8.5.0-3)]. This feature will be removed from ansible-core in version
+2.12. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+ansible [core 2.11.12]
+  config file = None
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.6.8 (default, Sep 10 2021, 09:13:53) [GCC 8.5.0 20210514 (Red Hat 8.5.0-3)]
+  jinja version = 3.0.3
+  libyaml = True
+[vagrant@ansible-controller Python-3.11.3]$
+
+
+Resolution :-
+
+[vagrant@ansible-controller Python-3.11.3]$ python3 --version
+Python 3.6.8
+[vagrant@ansible-controller Python-3.11.3]$ which python3
+/usr/bin/python3
+[vagrant@ansible-controller Python-3.11.3]$ ll /usr/bin/python3
+lrwxrwxrwx. 1 root root 25 Feb 22 10:31 /usr/bin/python3 -> /etc/alternatives/python3
+
+[vagrant@ansible-controller Python-3.11.3]$ sudo unlink /usr/bin/python3
+
+[vagrant@ansible-controller Python-3.11.3]$ sudo ln -s /usr/bin/python3.11 /usr/bin/python3
+
+then reinstall ansible :-
+
+$ sudo pip3 install --upgrade --ignore-installed pip setuptools
+ $ sudo python3 -m pip install ansible
+ $ ansible --version
+
+===================================================================================================================
+
+
+
+
+
 
 
 
