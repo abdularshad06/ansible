@@ -17,3 +17,32 @@ vagrant ssh ansible-controller
 
 ===================================================================================================================
 
+Install EPEL and install python3.11 for ansible pre-requisites.
+
+ sudo dnf install epel-release -y
+
+
+  Problem: conflicting requests
+  - nothing provides python(abi) = 3.11 needed by ansible-8.3.0-1.el8.noarch
+  - nothing provides python3.11dist(ansible-core) >= 2.15.3 needed by ansible-8.3.0-1.el8.noarch
+  - nothing provides /usr/bin/python3.11 needed by ansible-8.3.0-1.el8.noarch
+(try to add '--skip-broken' to skip uninstallable packages or '--nobest' to use not only best candidate packages)
+
+
+Install Python3.11 by below URL
+
+https://tecadmin.net/install-python-3-11-on-centos-fedora/
+
+$ sudo dnf install gcc openssl-devel bzip2-devel sqlite-devel wget -y
+$ cd /usr/src 
+$ wget https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tgz 
+$ tar xzf Python-3.11.3.tgz 
+$ cd Python-3.11.3 
+$ sudo ./configure --enable-optimizations 
+$ sudo make altinstall 
+$ python3.11 -V 
+$ sudo rm /usr/src/Python-3.11.3.tgz 
+
+
+
+

@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "webserver1" do |vm2|
     vm2.vm.hostname = "webserver1"
     vm2.vm.box = "centos/8"
-    vm2.vm.network "private_network", ip: "192.168.33.11"
+    vm2.vm.network "private_network", ip: "192.168.30.11"
     vm2.vm.network "public_network"
     
     vm2.vm.provider "virtualbox" do |vb|
@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "webserver2" do |vm3|
     vm3.vm.hostname = "webserver2"
     vm3.vm.box = "centos/8"
-    vm3.vm.network "private_network", ip: "192.168.33.12"
+    vm3.vm.network "private_network", ip: "192.168.30.12"
     vm3.vm.network "public_network"
     
     vm3.vm.provider "virtualbox" do |vb|
@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "dbserver1" do |vm4|
     vm4.vm.hostname = "dbseserver1"
     vm4.vm.box = "centos/8"
-    vm4.vm.network "private_network", ip: "192.168.33.13"
+    vm4.vm.network "private_network", ip: "192.168.30.13"
     vm4.vm.network "public_network"
     
     vm4.vm.provider "virtualbox" do |vb|
@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "dbserver2" do |vm5|
     vm5.vm.hostname = "dbserver2"
     vm5.vm.box = "centos/8"
-    vm5.vm.network "private_network", ip: "192.168.33.14"
+    vm5.vm.network "private_network", ip: "192.168.30.14"
     vm5.vm.network "public_network"
     
     vm5.vm.provider "virtualbox" do |vb|
