@@ -27,6 +27,7 @@ Vagrant.configure("2") do |config|
     vm2.vm.box = "centos/8"
     vm2.vm.network "private_network", ip: "192.168.30.11"
     vm2.vm.network "public_network"
+    vm2.ssh.insert_key = false
     
     vm2.vm.provider "virtualbox" do |vb|
       vb.name = "webserver1"
@@ -44,6 +45,7 @@ Vagrant.configure("2") do |config|
     vm3.vm.box = "centos/8"
     vm3.vm.network "private_network", ip: "192.168.30.12"
     vm3.vm.network "public_network"
+    vm3.ssh.insert_key = false
     
     vm3.vm.provider "virtualbox" do |vb|
       vb.name = "wwebserver2"
@@ -61,6 +63,7 @@ Vagrant.configure("2") do |config|
     vm4.vm.box = "centos/8"
     vm4.vm.network "private_network", ip: "192.168.30.13"
     vm4.vm.network "public_network"
+    vm4.ssh.insert_key = false
     
     vm4.vm.provider "virtualbox" do |vb|
       vb.name = "sqlserver1"
@@ -78,6 +81,7 @@ Vagrant.configure("2") do |config|
     vm5.vm.box = "centos/8"
     vm5.vm.network "private_network", ip: "192.168.30.14"
     vm5.vm.network "public_network"
+    vm5.ssh.insert_key = false
     
     vm5.vm.provider "virtualbox" do |vb|
       vb.name = "sqlserver2"
