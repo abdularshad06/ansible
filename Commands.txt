@@ -193,7 +193,7 @@ $ ansible-playbook /data/playbook/playbook1.yml -i /data/inventory/myinventory.t
 $ ansible-playbook /data/playbook/playbook2.yml -i /data/inventory/myinventory.txt
 $ ansible-playbook /data/playbook/playbook3.yml -i /data/inventory/myinventory.txt
 $ ansible-playbook /data/playbook/playbook4.yml -i /data/inventory/myinventory.txt
-
+$ ansible-playbook /data/playbook/playbook5.yml -i /data/inventory/myinventory.txt
 
 ===================================================================================================================
 

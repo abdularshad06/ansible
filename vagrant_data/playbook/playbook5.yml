@@ -1,0 +1,20 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+      - 
+        name: "create a dummy file on websever1"
+        command: touch /tmp/ansible_dummy_file1.txt
+      -
+        name: "copy host file in /tmp directory"
+        command: cp /etc/hosts /tmp/ansible_myhosts
+-
+  name: this is our second play.
+  hosts: web_db_server
+  tasks:
+      - 
+        name: "create a dummy directory on websever1 and dbserver1"
+        command: mkdir -p /tmp/ansible_dummy_dir
+      -
+        name: "create a dummy file on websever1 and dbserver1"
+        command: touch /tmp/ansible_dummy_dir/ansible_dummy_file_second_play.txt
