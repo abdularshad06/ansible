@@ -10,4 +10,4 @@ dbserver1
 
 [web_db_server]
 webserver1
-dbservers1
+dbserver1

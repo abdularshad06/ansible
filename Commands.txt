@@ -172,7 +172,7 @@ host_key_checking=False
 
 
 ===================================================================================================================
-Create Inventory File :-
+Inventory Related Commands :-
 
 $ mkdir -p /data/inventory/inventory.txt
 
@@ -187,7 +187,10 @@ $ ansible -m ping nfs_database_servers -i /data/inventory/inventorygroup2.txt
 
 ===================================================================================================================
 
+Playbook Related Commands :-
 
+ $ ansible-playbook playbook1.yml -i /data/inventory/myinventory.txt
+ 
 
 
 

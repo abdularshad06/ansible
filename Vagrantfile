@@ -59,14 +59,15 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "dbserver1" do |vm4|
-    vm4.vm.hostname = "dbseserver1"
+    vm4.vm.hostname = "dbserver1"
     vm4.vm.box = "centos/8"
     vm4.vm.network "private_network", ip: "192.168.30.13"
     vm4.vm.network "public_network"
+    
     vm4.ssh.insert_key = false
     
     vm4.vm.provider "virtualbox" do |vb|
-      vb.name = "sqlserver1"
+      vb.name = "dbserver1"
       vb.gui = true
       vb.memory = "1024"
     end
