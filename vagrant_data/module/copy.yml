@@ -1,0 +1,8 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+      - 
+        name: "create a dummy file on websever1"
+        copy: src=/data/module/test.yml dest=/tmp/ansible_test.yml
+

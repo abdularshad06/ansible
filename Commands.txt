@@ -197,6 +197,8 @@ $ ansible-playbook /data/playbook/playbook5.yml -i /data/inventory/myinventory.t
 
 ===================================================================================================================
 
+Module Related Commands :-
+$ ansible-playbook /data/module/copy.yml -i /data/inventory/myinventory.txt
 
 
 
