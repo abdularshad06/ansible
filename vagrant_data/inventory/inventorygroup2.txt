@@ -1,0 +1,37 @@
+webserver1 ansible_host=192.168.30.11 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver2 ansible_host=192.168.30.12 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver3 ansible_host=192.168.30.13 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver4 ansible_host=192.168.30.14 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver5 ansible_host=192.168.30.15 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver1 ansible_host=192.168.30.16 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver2 ansible_host=192.168.30.17 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver3 ansible_host=192.168.30.18 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver4 ansible_host=192.168.30.19 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver5 ansible_host=192.168.30.20 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+nfsserver1 ansible_host=192.168.30.21 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+nfsserver2 ansible_host=192.168.30.22 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+nfsserver3 ansible_host=192.168.30.23 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+nfsserver4 ansible_host=192.168.30.24 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+nfsserver5 ansible_host=192.168.30.25 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+
+[webservers]
+webserver1
+webserver2
+webserver3
+webserver4
+webserver5
+
+[databaseservers]
+sqlserver1
+sqlserver2
+sqlserver3
+sqlserver4
+sqlserver5
+
+[nfsservers]
+nfsserver[1:5]
+
+[nfs_database_servers:children]
+nfsservers
+databaseservers
+

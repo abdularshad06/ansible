@@ -1,0 +1,12 @@
+webserver1 ansible_host=192.168.30.11 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver2 ansible_host=192.168.30.12 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver1 ansible_host=192.168.30.13 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+sqlserver2 ansible_host=192.168.30.14 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+
+[webservers]
+webserver1
+webserver2
+
+[databaseservers]
+sqlserver1
+sqlserver2

@@ -176,12 +176,14 @@ Create Inventory File :-
 
 $ mkdir -p /data/inventory/inventory.txt
 
-webserver1 ansible_host=192.168.30.11 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=vagrant
-webserver2 ansible_host=192.168.30.12 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=vagrant
-#sqlserver1 ansible_host=192.168.30.13 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=vagrant
-#sqlserver2 ansible_host=192.168.30.14 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=vagrant
-
 $ ansible -m ping all -i /data/inventory/inventory.txt
+$ ansible -m ping webserver1 -i /data/inventory/inventory.txt
+$ ansible -m ping webserver2 -i /data/inventory/inventory.txt
+$ ansible -m ping webservers -i /data/inventory/inventorygroup.txt
+$ ansible -m ping databaseservers -i /data/inventory/inventorygroup.txt
+$ ansible -m ping webserver* -i /data/inventory/inventorygroup.txt
+$ ansible -m ping nfs_database_servers -i /data/inventory/inventorygroup2.txt
+
 
 ===================================================================================================================
 
