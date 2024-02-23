@@ -4,7 +4,7 @@
   tasks:
       - 
         name: "create a dummy directory on websever1 and dbserver1"
-        command: mkdir -p /tmp/ansible_dummy_dir_web_db_server.txt
+        command: mkdir -p /tmp/ansible_dummy_dir
       -
         name: "create a dummy file on websever1 and dbserver1"
-        command: touch /tmp/ansible_dummy_file_web_db_server.txt
+        command: touch /tmp/ansible_dummy_dir/ansible_dummy_file_web_db_server.txt
