@@ -1,0 +1,7 @@
+-
+  name: this is our third play.
+  hosts: web_db_server
+  tasks:
+      - 
+        name: "create a dummy directory on websever1 and dbserver1"
+        command: mkdir -p /tmp/ansible_dummy_dir
