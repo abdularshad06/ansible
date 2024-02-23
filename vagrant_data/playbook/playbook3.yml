@@ -1,5 +1,9 @@
 -
+<<<<<<< HEAD
   name: this is our third play.
+=======
+  name: this is our first play.
+>>>>>>> playbook
   hosts: web_db_server
   tasks:
       - 
