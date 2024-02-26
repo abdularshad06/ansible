@@ -208,8 +208,37 @@ FileInLine :-
 $ ansible-playbook /data/module/fileinline/command.yml -i /data/inventory/myinventory.txt   --> File Not Created by this.
 $ ansible-playbook /data/module/fileinline/lineInFile.yml -i /data/inventory/myinventory.txt
 
+===================================================================================================================
+
+Set Inventory File in Ansible Config :-
+$ sudo vim /etc/ansible/ansible.cfg
+inventory=/etc/ansible/hosts
+
+$ sudo vim /etc/ansible/hosts
+webserver1 ansible_host=192.168.30.11 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver2 ansible_host=192.168.30.12 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+dbserver1 ansible_host=192.168.30.13 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+
+[webservers]
+webserver1
+
+[dbservers]
+dbserver1
+
+[web_db_server]
+webserver1
+dbserver1
+
+===================================================================================================================
+
 script :-
-$ ansible-playbook /data/module/script/script.yml -i /data/inventory/myinventory.txt
+$ ansible-playbook /data/module/script/script.yml
+$ ansible-playbook /data/module/script/script1.yml
+$ ansible-playbook /data/module/script/script2.yml
+
+===================================================================================================================
+
+
 
 
 

@@ -1,0 +1,17 @@
+#-
+#  name: this is our first play.
+#  hosts: webserver1
+#  tasks:
+#      - 
+#        name: "create a dummy file on websever1"
+#        script: testScript.sh Arshad creates=/tmp/test.txt
+
+# script - testScript.sh is having on ansible-controller not on target machine ans Arshad is a argument here
+
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+  -
+    name: "create a dummy file on websever1"
+    script: testScript.sh Gaurav creates=/tmp/test.txt
