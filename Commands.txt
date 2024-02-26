@@ -238,11 +238,5 @@ $ ansible-playbook /data/module/script/script2.yml
 
 ===================================================================================================================
 
-
-
-
-
-
-
-
-
+Service :-
+$ ansible-playbook /data/module/service/service1.yml
