@@ -1,0 +1,9 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+      - 
+        name: "create a dummy file on websever1"
+        copy: src=/data/module/copy/test.yml dest=/tmp/ansible_test.yml owner=vagrant group=vagrant mode=0644
+
+

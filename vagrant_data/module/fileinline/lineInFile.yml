@@ -1,0 +1,7 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+      - 
+        name: "create a dummy file on websever1"
+        lineinfile: path=/tmp/ansible_resolve.conf line="arshad"

@@ -198,7 +198,19 @@ $ ansible-playbook /data/playbook/playbook5.yml -i /data/inventory/myinventory.t
 ===================================================================================================================
 
 Module Related Commands :-
-$ ansible-playbook /data/module/copy.yml -i /data/inventory/myinventory.txt
+
+Copy :-
+$ ansible-playbook /data/module/copy/copy.yml -i /data/inventory/myinventory.txt
+$ ansible-playbook /data/module/copy/copy1.yml -i /data/inventory/myinventory.txt
+$ ansible-playbook /data/module/copy/copy2.yml -i /data/inventory/myinventory.txt
+
+FileInLine :-
+$ ansible-playbook /data/module/fileinline/command.yml -i /data/inventory/myinventory.txt   --> File Not Created by this.
+$ ansible-playbook /data/module/fileinline/lineInFile.yml -i /data/inventory/myinventory.txt
+
+
+
+
 
 
 
