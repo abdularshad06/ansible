@@ -208,6 +208,8 @@ FileInLine :-
 $ ansible-playbook /data/module/fileinline/command.yml -i /data/inventory/myinventory.txt   --> File Not Created by this.
 $ ansible-playbook /data/module/fileinline/lineInFile.yml -i /data/inventory/myinventory.txt
 
+script :-
+$ ansible-playbook /data/module/script/script.yml -i /data/inventory/myinventory.txt
 
 
 
