@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     vm1.vm.network "private_network", ip: "192.168.30.10"
     vm1.vm.network "public_network"
     vm1.ssh.insert_key = false
-    vm1.vm.synced_folder "./vagrant_data/", "/data"
+    vm1.vm.synced_folder "./data/", "/data"
     
     vm1.vm.provider "virtualbox" do |vb|
       vb.name = "ansible-controller"
