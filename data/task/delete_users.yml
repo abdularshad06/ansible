@@ -1,0 +1,17 @@
+- 
+  name: Create Users on CentOS 8
+  hosts: webserver1
+  become: true
+  vars:
+    users_to_create:
+      - username: user1
+      - username: user2
+      # Add more users as needed
+  tasks:
+    - 
+      name: Delete users
+      user:
+        name: "{{ item.username }}"
+        state: absent
+        remove: yes
+      loop: "{{ users_to_create }}"

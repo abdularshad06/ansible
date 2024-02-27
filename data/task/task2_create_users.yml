@@ -1,0 +1,24 @@
+- 
+  name: Create Users on CentOS 8
+  hosts: webserver1
+  become: true
+  vars:
+    users_to_create:
+      - 
+        username: user1
+        password: $6$9HyPOURVUp1qUh5z$nLCoCiirsY8dlU5T4YsdlGHBHixcerEBz6NcCneXMkDmGv.BH32y9tMzXlBIsRY03CjTHBR2Rqwkn2W9vJORp/
+        comment: "User 1"
+      - 
+        username: user2
+        password: $6$9HyPOURVUp1qUh5z$nLCoCiirsY8dlU5T4YsdlGHBHixcerEBz6NcCneXMkDmGv.BH32y9tMzXlBIsRY03CjTHBR2Rqwkn2W9vJORp/
+        comment: "User 2"
+      # Add more users as needed
+  tasks:
+    - 
+      name: Create users
+      user:
+        name: "{{ item.username }}"
+        password: "{{ item.password }}"
+        comment: "{{ item.comment }}"
+        state: present
+      loop: "{{ users_to_create }}"
