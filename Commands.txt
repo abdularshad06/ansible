@@ -244,8 +244,13 @@ $ ansible-playbook /data/module/service/service1.yml
 ===================================================================================================================
 
 User :-
-$ ansible-playbook /data/module/service/user.yml
-$ ansible-playbook /data/module/service/user1.yml
+$ ansible-playbook /data/module/user/user.yml
+$ ansible-playbook /data/module/user/user1.yml
+
+===================================================================================================================
+
+Variable :-
+$ ansible-playbook /data/module/variable/variable1.yml
 
 ===================================================================================================================
 
