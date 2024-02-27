@@ -1,0 +1,12 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  vars:
+    pkgs:
+      - vsftpd
+      - httpd
+  tasks:
+      - 
+        name: "Install httpd Package"
+        dnf: name="{{ item }}" state=present #absent
+        with_items: "{{ pkgs }}"

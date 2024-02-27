@@ -1,0 +1,10 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  tasks:
+      - 
+        name: "Install httpd Package"
+        dnf: name="httpd" state=present #absent #present
+      -
+        name: "Install vasftpd Package"
+        dnf: name="vsftpd" state=present #absent #present
