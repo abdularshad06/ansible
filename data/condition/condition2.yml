@@ -1,0 +1,14 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  vars:
+    age: 19
+  tasks:
+    -
+      name: 'creating file using variable'
+      command: touch /tmp/18.txt
+      when: age == 18
+    -
+      name: 'creating file using variable'
+      command: touch /tmp/grater_then_18.txt
+      when: age > 18

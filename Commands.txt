@@ -254,3 +254,9 @@ $ ansible-playbook /data/module/variable/variable1.yml
 
 ===================================================================================================================
 
+Commands :-
+$ ansible-playbook /data/condition/condition1.yml -v
+$ ansible-playbook /data/condition/condition2.yml -v
+$ ansible-playbook /data/condition/condition3.yml -v
+
+===================================================================================================================
