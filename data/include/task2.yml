@@ -1,0 +1,21 @@
+-
+  name: 'task 9'
+  command: touch /tmp/task/{{ var9 }}.txt
+-
+  name: 'task 10'
+  command: touch /tmp/task/{{ var10 }}.txt
+-
+  name: 'task 11'
+  command: touch /tmp/task/{{ var11 }}.txt
+-
+  name: 'task 12'
+  command: touch /tmp/task/{{ var12 }}.txt
+-
+  name: 'task 13'
+  command: touch /tmp/task/{{ var13 }}.txt
+-
+  name: 'task 14'
+  command: touch /tmp/task/{{ var14 }}.txt
+-
+  name: 'task 15'
+  command: touch /tmp/task/{{ var15 }}.txt

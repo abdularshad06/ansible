@@ -1,0 +1,12 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  vars_files:
+    - variable.yml
+  tasks:
+    - include_tasks: task.yml     # import_tasks # include_tasks
+
+# ERROR! [DEPRECATED]: ansible.builtin.include has been removed. 
+# Use include_tasks or import_tasks instead. 
+# This feature was removed from ansible-core in a release after 2023-05-16. 
+# Please update your playbooks.
