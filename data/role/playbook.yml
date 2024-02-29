@@ -1,0 +1,30 @@
+-
+  name: this is our 1st play.
+  hosts: webserver1
+  tasks:
+  -
+    name: 'task 1'
+    command: touch /tmp/php_play_1_task_1.txt
+  -
+    name: 'task 2'
+    command: touch /tmp/php_play_1_task_2.txt
+-
+  name: this is our 2nd play.
+  hosts: webserver1
+  tasks:
+  -
+    name: 'task 1'
+    command: touch /tmp/web_play_2_task_1.txt
+  -
+    name: 'task 2'
+    command: touch /tmp/web_play_2_task_2.txt
+-
+  name: this is our 3rd play.
+  hosts: dbserver1
+  tasks:
+  -
+    name: 'task 1'
+    command: touch /tmp/sql_play_3_task_1.txt
+  -
+    name: 'task 2'
+    command: touch /tmp/sql_play_3_task_2.txt

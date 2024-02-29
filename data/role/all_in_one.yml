@@ -1,0 +1,7 @@
+-
+  name: this is our 1st play.
+  hosts: webserver1
+  roles:
+  - webserver
+  - php
+  - dbserver
