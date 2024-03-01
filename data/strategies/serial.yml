@@ -1,0 +1,14 @@
+-
+  name: 'strategy demo'
+  hosts: webserver1,dbserver1
+  serial: 1
+  tasks:
+  -
+    name: 'first task'
+    dnf: name='httpd' state='present'
+  -
+    name: 'second task'
+    command: touch /tmp/strategy_task2.txt
+  -  
+    name: '3rd task'
+    command: sleep 30

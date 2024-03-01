@@ -266,3 +266,13 @@ $ ansible-galaxy init dummy   #Here dummy is the role name.
 
 ===================================================================================================================
 
+# (integer) Maximum number of forks Ansible will use to execute tasks on target hosts.
+# ;forks=5
+
+Deprecation :- Ansible executes the playbook on 5 machines at a time. 
+If we want to change the value we can,
+but if we increases the number of forks then we need to heavy resources ( CPU and RAM etc. ) 
+on ansible-controller-node.
+
+We can set it in playbook also. 
+===================================================================================================================

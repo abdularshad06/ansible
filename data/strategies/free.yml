@@ -1,0 +1,11 @@
+-
+  name: 'strategy demo'
+  hosts: webserver1,dbserver1
+  strategy: free
+  tasks:
+  -
+    name: 'first task'
+    dnf: name='httpd' state='present'
+  -
+    name: 'second task'
+    command: touch /tmp/strategy_task2.txt
