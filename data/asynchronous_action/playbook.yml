@@ -1,0 +1,11 @@
+-
+  name: this is our 1st play.
+  hosts: webserver1
+  tasks:
+  -
+    name: 'sleep for 120 sec'
+    command: sleep 120
+    
+  - 
+    name: 'second task'
+    command: touch /tmp/second_task.txt

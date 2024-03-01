@@ -1,0 +1,12 @@
+-
+  name: this is our 1st play.
+  hosts: webserver1
+  tasks:
+  -
+    name: 'sleep for 60 sec'
+    command: sleep 60
+    async: 70
+    poll: 35
+  -
+    name: 'second task'
+    command: touch /tmp/second_task.txt

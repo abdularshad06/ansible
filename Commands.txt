@@ -263,3 +263,6 @@ $ ansible-playbook /data/condition/condition3.yml -v
 
 Ansible Role :-
 $ ansible-galaxy init dummy   #Here dummy is the role name.
+
+===================================================================================================================
+
