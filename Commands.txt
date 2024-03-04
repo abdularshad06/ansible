@@ -276,3 +276,16 @@ on ansible-controller-node.
 
 We can set it in playbook also. 
 ===================================================================================================================
+
+Ansible Vault :-
+
+* Encrypt Inventory File :- 
+$ ansible-vault encrypt inventory.txt --output enc_inven.txt
+
+* Decrypt Encrypted Inventory File :- 
+$ ansible-vault view enc_inven.txt
+
+* Run Playbook using Encrypted Inventory File.
+$ ansible-playbook -i enc_inven.txt playbook.yml --ask-vault-pass
+
+===================================================================================================================
