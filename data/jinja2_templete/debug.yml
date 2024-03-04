@@ -1,0 +1,48 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  vars:
+    your_name: Arshad
+    dummy_list:
+      - 1
+      - 10
+      - 20
+      - 30
+      - 10
+    dummy_list2:
+      - 30
+      - 40
+      - 10
+      - 50
+  tasks:
+    -
+      debug:
+        #msg: "Hello World"
+        msg: "Hello {{ your_name }}"    ## Hello Arshad
+    -
+      debug:
+        msg: "Hello {{ your_name | upper }}"  ## Hello ARSHAD
+    -
+      debug:
+        msg: "Hello {{ your_name | lower }}"  ## Hello arshad
+    -
+      debug:
+        msg: "Hello {{ your_name | replace( 'Arshad', 'Abdul') }}"   ## Hello Abdul  ## replace Arshad to Abdul
+    -
+      debug:
+        msg: "{{ dummy_list | min }}"  ## 1
+    -
+      debug:
+        msg: "{{ dummy_list | max }}"  ## 30
+    -
+      debug:
+        msg: "{{ dummy_list | unique }}"  ## 30  ## print Unique Value
+    -
+      debug:
+        msg: "{{ dummy_list | union(dummy_list2) }}"  ## 
+    -
+      debug:
+        msg: "{{ 100 | random }}"  ## Print Random No. upto 100
+    -
+      debug:
+        msg: "{{ '/etc/ansible/ansible.cfg' | basename }}"  ## Print only file name.
