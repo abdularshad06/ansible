@@ -1,0 +1,10 @@
+-
+  name: 'strategy demo'
+  hosts: webserver1,dbserver1
+  tasks:
+  -
+    name: 'first task'
+    command: touch /tmp/task/task1.txt
+  -
+    name: 'second task'
+    command: touch /tmp/task2.txt
