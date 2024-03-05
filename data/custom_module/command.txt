@@ -1,1 +1,2 @@
-export ANSIBLE_LIBRARY=.
+$ export ANSIBLE_LIBRARY=.
+$ ansible-playbook user_data_play.yml
