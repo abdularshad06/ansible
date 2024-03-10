@@ -1,0 +1,14 @@
+webserver1 ansible_host=192.168.30.11 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+webserver2 ansible_host=192.168.30.12 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+dbserver1 ansible_host=192.168.30.13 ansible_password=vagrant ansible_connection=ssh ansible_port=22 ansible_user=root
+windows1 ansible_host=192.168.30.15 ansible_password=vagrant ansible_connection=winrm ansible_port=5986 ansible_user=arshad ansible_winrm_server_cert_validation=ignore
+
+[webservers]
+webserver1
+
+[dbservers]
+dbserver1
+
+[web_db_server]
+webserver1
+dbserver1

@@ -95,4 +95,20 @@ Vagrant.configure("2") do |config|
     SHELL
   end
 
+  config.vm.define "win10" do |vm5|
+    vm5.vm.hostname = "win-10"
+    vm5.vm.box = "gusztavvargadr/windows-10"
+    vm5.vm.network "private_network", ip: "192.168.30.15"
+    vm5.vm.network "public_network"
+    vm5.ssh.insert_key = false
+    vm5.vm.synced_folder "./data/", "/data"
+    
+    vm5.vm.provider "virtualbox" do |vb|
+      vb.name = "win-10"
+      vb.gui = true
+      vb.memory = "2048"
+    end
+
+  end
+
 end

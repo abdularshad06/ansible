@@ -1,0 +1,56 @@
+Ansible for Windows Control :-
+
+* pre-requisite for Ansible-Controller Linux Machine :-
+$ sudo dnf install python-pip 
+$ sudo python3 -m pip install pywinrm
+$ sudo rpm -qa | grep python3-pip 
+$ sudo python3 -m pip list 
+$ sudo python3 -m pip list | grep pywinrm
+
+Windows Side :-
+Open Power Shell Run as Administrator :-
+
+Save Below script as .ps1 file.
+
+https://raw.githubusercontent.com/ansible/ansible-documentation/ae8772176a5c645655c91328e93196bcf741732d/examples/scripts/ConfigureRemotingForAnsible.ps1
+
+
+> Get-Host
+> cd /
+> cd .\Users\Arshad\Desktop\
+> ls
+> powershell.exe -ExecutionPolicy ByPass -File .\ConfigureRemotingForAnsible.ps1
+> winrm enumerate winrm/config/Listener
+
+output of above command :-
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+PS C:\Users\Coforge\Desktop> winrm enumerate winrm/config/Listener
+Listener
+    Address = *
+    Transport = HTTP
+    Port = 5985
+    Hostname
+    Enabled = true
+    URLPrefix = wsman
+    CertificateThumbprint
+    ListeningOn = 10.125.108.6, 127.0.0.1, 169.254.170.200, 169.254.190.94, 169.254.199.169, 169.254.228.240, 192.168.1.6, 192.168.2.6, 192.168.29.163, 192.168.30.1, 192.168.33.1, 192.168.47.1, 192.168.56.1, 192.168.57.1, ::1, fe80::25a:38bb:dbeb:f585%7, fe80::16fe:9671:6e0e:7485%5, fe80::4d9a:3767:f393:4dc0%12, fe80::70b5:5581:517c:9f66%10, fe80::9e32:6b71:e6e7:cbf4%11, fe80::a12b:c864:25f0:d695%18, fe80::a340:e547:ab4e:1b51%16, fe80::a86b:2124:10fa:c6ae%24, fe80::b7b3:104a:e3c:b294%25, fe80::cb68:e344:67fb:79b3%19, fe80::e9c6:1d0b:a019:5e0d%17
+
+Listener
+    Address = *
+    Transport = HTTPS
+    Port = 5986
+    Hostname = DESKTOP-C7451KF
+    Enabled = true
+    URLPrefix = wsman
+    CertificateThumbprint = BD2E8DC9BB5C59542FE793F4453ABAC49D7BD97E
+    ListeningOn = 10.125.108.6, 127.0.0.1, 169.254.170.200, 169.254.190.94, 169.254.199.169, 169.254.228.240, 192.168.1.6, 192.168.2.6, 192.168.29.163, 192.168.30.1, 192.168.33.1, 192.168.47.1, 192.168.56.1, 192.168.57.1, ::1, fe80::25a:38bb:dbeb:f585%7, fe80::16fe:9671:6e0e:7485%5, fe80::4d9a:3767:f393:4dc0%12, fe80::70b5:5581:517c:9f66%10, fe80::9e32:6b71:e6e7:cbf4%11, fe80::a12b:c864:25f0:d695%18, fe80::a340:e547:ab4e:1b51%16, fe80::a86b:2124:10fa:c6ae%24, fe80::b7b3:104a:e3c:b294%25, fe80::cb68:e344:67fb:79b3%19, fe80::e9c6:1d0b:a019:5e0d%17
+
+PS C:\Users\Coforge\Desktop>
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+$  ansible windows1 -m win_ping -i /etc/ansible/hosts
+
+===================================================================================================================
+

@@ -289,3 +289,31 @@ $ ansible-vault view enc_inven.txt
 $ ansible-playbook -i enc_inven.txt playbook.yml --ask-vault-pass
 
 ===================================================================================================================
+
+Ansible for Windows Control :-
+
+* pre-requisite for Ansible-Controller Linux Machine :-
+$ sudo dnf install python-pip 
+$ sudo python3 -m pip install pywinrm
+$ sudo rpm -qa | grep python3-pip 
+$ sudo python3 -m pip list 
+$ sudo python3 -m pip list | grep pywinrm
+
+Windows Side :-
+Open Power Shell Run as Administrator :-
+
+Save Below script as .ps1 file.
+
+https://raw.githubusercontent.com/ansible/ansible-documentation/ae8772176a5c645655c91328e93196bcf741732d/examples/scripts/ConfigureRemotingForAnsible.ps1
+
+
+> Get-Host
+> cd /
+> cd .\Users\Arshad\Desktop\
+> ls
+> powershell.exe -ExecutionPolicy ByPass -File .\ConfigureRemotingForAnsible.ps1
+> winrm enumerate winrm/config/Listener
+
+
+===================================================================================================================
+
