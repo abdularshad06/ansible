@@ -1,0 +1,10 @@
+-
+  name: this is our first play.
+  hosts: webserver1
+  become: yes
+  become_user: arsh
+  become_method: su
+  tasks:
+  -
+    name: "login username"
+    command: touch /tmp/become_arsh.txt
