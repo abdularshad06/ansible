@@ -1,3 +1,0 @@
-powershell.exe -ExecutionPolicy ByPass -File .\ConfigureRemotingForAnsible.ps1
-
-winrm enumerate winrm/config/Listener
