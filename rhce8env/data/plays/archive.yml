@@ -1,0 +1,38 @@
+-
+  name: Create /backup directory on Control Node.
+  hosts: localhost
+  tasks:
+    - name: Create /backup directory.
+      file:
+              path: /backup
+              state: directory
+              owner: automation
+              group: automation
+              mode: 0755
+- 
+  name: Archiving
+  hosts: all
+  tasks: 
+    - name: Create /backup/ directory.
+      file:
+              path: /backup
+              state: directory
+              owner: automation
+              group: automation
+              mode: 0755
+    - name: Archining /etc to /backup/configuration.gz
+      archive:
+              path: /etc
+              dest: /backup/configuration.gz
+              format: gz
+              owner: automation
+              group: automation
+              mode: 0660
+    - name: fetching files from all nodes to control node.
+      fetch:
+              src: /backup/configuration.gz
+              dest: /backup/{{ inventory_hostname }}-configuration.gz
+              owner: automation
+              group: automation
+              mode: 0660
+

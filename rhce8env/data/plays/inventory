@@ -1,0 +1,12 @@
+[proxy]
+node1
+
+[webservers]
+node[2:3]
+
+[database]
+node[3:4]
+
+[public:children]
+proxy
+webservers
