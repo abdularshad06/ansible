@@ -1,0 +1,29 @@
+-
+  name: copy content to /etc/motd on all nodes.
+  hosts: all
+  become: True
+  tasks:
+          - name: copy content to /etc/motd on proxy group.
+            copy:
+                    content: "Welcome to HAProxy server\n"
+                    dest: /etc/motd
+                    owner: root
+                    group: root
+                    mode: 0644
+            when: "inventory_hostname in groups['proxy']"
+          - name: copy content to /etc/motd on  database group.
+            copy:
+                    content: "Welcome to MySQL database\n"
+                    dest: /etc/motd
+                    owner: root
+                    group: root
+                    mode: 0644
+            when: "inventory_hostname in groups['database']"
+          - name: copy content to /etc/motd on  webservers group.
+            copy:
+                    content: "Welcome to Apache server\n"
+                    dest: /etc/motd
+                    owner: root
+                    group: root
+                    mode: 0644
+            when: "inventory_hostname in groups['webservers']"

@@ -1,0 +1,13 @@
+-
+  name: populating motd to all nodes.
+  hosts: all
+  become: True
+  tasks:
+          - name: populating motd to all nodes.
+            copy:
+                    content: '{{ motd }}'
+                    dest: /etc/motd
+                    owner: root
+                    group: root
+                    mode: 0644
+

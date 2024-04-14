@@ -1,0 +1,19 @@
+-
+  name: working on facts
+  hosts: proxy
+  become: True
+  tasks:
+          - name: ensure directory is exists.
+            file:
+                    path: /etc/ansible/facts.d
+                    state: directory
+                    recurse: yes
+                    owner: automation
+                    group: automation
+          - name: copy content to file /etc/ansible/facts.d/environment.fact
+            copy:
+                    content: "[application]\nname=haproxy\n"
+                    dest: /etc/ansible/facts.d/environment.fact
+          - name: debug
+            debug:
+                    msg: "{{ ansible_local.environment.application }}"
