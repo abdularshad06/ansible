@@ -1,0 +1,35 @@
+---
+  - name: pdsh install and configure
+    hosts: all
+    become: true
+    gather_facts: false
+    tasks:
+            - name: install pdsh package using dnf module
+              dnf:
+                      name: 
+                        - pdsh
+                        - pdsh-rcmd-ssh
+                      state: latest
+            - name: create pdsh directory
+              file:
+                      path: /etc/pdsh/
+                      state: directory
+                      recurse: true
+            - name: create /etc/pdsh/machines
+              file:
+                      path: /etc/pdsh/machines
+                      state: touch
+            - name: copy content in file
+              blockinfile:
+                      path: /etc/pdsh/machines
+                      block: |
+                              node1
+                              node2
+                              node3
+                              node4
+# do passwordless ssh in all nodes and copy following lines into .bashrc and source for activate
+#
+# ~/.bashrc
+# source ~/.bashrc
+# export PDSH_RCMD_TYPE='ssh'
+# export WCOLL='/etc/pdsh/machines'
