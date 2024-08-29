@@ -1,0 +1,16 @@
+---
+- name: install ftp servers
+  hosts: localhost
+  remote_user: ansible
+  become: yes
+
+  tasks:
+  - name: Ensure vsftpd is at the latest version
+    ansible.builtin.dnf:
+      name: vsftpd
+      state: latest
+
+  - name: Start service vsftpd, if not started
+    ansible.builtin.service:
+      name: vsftpd
+      state: started
