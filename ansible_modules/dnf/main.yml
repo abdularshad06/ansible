@@ -1,0 +1,151 @@
+---
+- name: Set up RHEL 9.3 local repository with FTP and HTTP services
+  hosts: localhost
+  become: yes
+
+  vars:
+    dvd_mount_point: "/mnt/dvd"
+    tmp_dvd: "dvd"
+    local_repo_dir: "/var/ftp/pub/rhel9_repo"
+    http_link_dir: "/var/www/html/rhel9_repo"
+    repo_name_baseos: "RHEL_9.3_BaseOS"
+    repo_name_appstream: "RHEL_9.3_AppStream"
+    repo_url_http: "http://localhost/rhel9_repo"
+    repo_url_ftp: "ftp://localhost/pub/rhel9_repo"
+
+  tasks:
+
+    - name: Ensure the directory exists
+      file:
+        path: "{{ dvd_mount_point }}"
+        state: directory
+    
+    - name: This command will mount DVD to /mnt/dvd/
+      ansible.builtin.shell:
+        cmd: sudo mount /dev/sr0 /mnt/dvd/
+    
+    - name: Create a new repository configuration file for localhost
+      copy:
+        dest: "/etc/yum.repos.d/{{ tmp_dvd }}.repo"
+        content: |
+          [{{ tmp_dvd }}_BaseOS]
+          name={{ tmp_dvd }} local
+          baseurl=file://{{ dvd_mount_point }}/BaseOS
+          enabled=1
+          gpgcheck=0
+
+          [{{ tmp_dvd }}_local]
+          name={{ tmp_dvd }} local
+          baseurl=file://{{ dvd_mount_point }}/AppStream
+          enabled=1
+          gpgcheck=0    
+
+    - name: Install vsftpd and httpd packages
+      package:
+        name:
+          - vsftpd
+          - httpd
+        state: present
+
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+        path: /etc/yum.repos.d/dvd.repo
+        state: absent
+
+    - name: Allow anynomous Login in vsftpd config
+      replace: 
+        path: /etc/vsftpd/vsftpd.conf
+        regexp: 'anonymous_enable=NO'
+        replace: 'anonymous_enable=YES'
+        backup: yes
+
+    - name: Start and enable vsftpd service
+      service:
+        name: vsftpd
+        state: started
+        enabled: yes
+
+    - name: Start and enable httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+    
+    - name: Ensure the local repository directory exists for FTP
+      file:
+        path: "{{ local_repo_dir }}"
+        state: directory
+
+    # ansible-galaxy collection install community.general
+    # ansible-galaxy collection install ansible.posix
+    - name: Copy files from DVD to local repository
+      synchronize:
+        src: "{{ dvd_mount_point }}/"
+        dest: "{{ local_repo_dir }}/"
+        delete: no
+        recursive: yes
+
+    - name: Create soft link for HTTP access
+      file:
+        src: "{{ local_repo_dir }}"
+        dest: "{{ http_link_dir }}"
+        state: link
+
+    # - name: Remove old metadata (if exists)
+    #   file:
+    #     path: "{{ local_repo_dir }}/repodata"
+    #     state: absent
+
+    # - name: Rebuild repository metadata (BaseOS)
+    #   command: createrepo -g comps.xml {{ local_repo_dir }}/BaseOS
+    #   args:
+    #     chdir: "{{ local_repo_dir }}/BaseOS"
+    #   register: createrepo_output_baseos
+
+    # - name: Rebuild repository metadata (AppStream)
+    #   command: createrepo -g comps.xml {{ local_repo_dir }}/AppStream
+    #   args:
+    #     chdir: "{{ local_repo_dir }}/AppStream"
+    #   register: createrepo_output_appstream
+
+    - name: Create a new repository configuration file for FTP and HTTP
+      copy:
+        dest: "/etc/yum.repos.d/{{ repo_name_baseos }}.repo"
+        content: |
+          [{{ repo_name_baseos }}_ftp]
+          name={{ repo_name_baseos }} FTP Repository
+          baseurl={{ repo_url_ftp }}/BaseOS
+          enabled=1
+          gpgcheck=0
+
+          [{{ repo_name_baseos }}_http]
+          name={{ repo_name_baseos }} HTTP Repository
+          baseurl={{ repo_url_http }}/BaseOS
+          enabled=1
+          gpgcheck=0
+
+          [{{ repo_name_appstream }}_ftp]
+          name={{ repo_name_appstream }} FTP Repository
+          baseurl={{ repo_url_ftp }}/AppStream
+          enabled=1
+          gpgcheck=0
+
+          [{{ repo_name_appstream }}_http]
+          name={{ repo_name_appstream }} HTTP Repository
+          baseurl={{ repo_url_http }}/AppStream
+          enabled=1
+          gpgcheck=0
+    
+    - name: Clean YUM cache
+      command: yum clean all
+
+    - name: Update YUM metadata cache
+      command: yum makecache
+
+    - name: Verify the repository and list groups
+      command: yum grouplist
+      register: yum_grouplist
+      ignore_errors: yes
+
+    - debug:
+        msg: "{{ yum_grouplist.stdout }}"

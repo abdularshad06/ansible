@@ -1,0 +1,23 @@
+---
+- name: Ensure necessary Ansible Galaxy collections are installed
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Check if the community.general collection is installed
+      command: ansible-galaxy collection list community.general
+      register: check_community_general
+      ignore_errors: yes
+
+    - name: Check if the ansible.posix collection is installed
+      command: ansible-galaxy collection list ansible.posix
+      register: check_community_general
+      ignore_errors: yes
+
+    - name: Install collections from requirements.yml if missing
+      command: ansible-galaxy collection install -r requirements.yml
+      # when: check_community_general.rc != 0
+
+    - name: Proceed with playbook tasks after ensuring collections are installed
+      debug:
+        msg: "All required collections are installed."
