@@ -1,0 +1,2 @@
+sudo ansible-playbook --sytax-check install_pre_requisite.yml
+sudo ansible-playbook --sytax-check copy_dvd_create_repo.yml
