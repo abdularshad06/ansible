@@ -1,0 +1,14 @@
+---
+- name: Set up RHEL 9.3 local repositories using a remote repository server
+  hosts: node1
+  become: yes
+
+  tasks:
+    - name: Remove Repository
+      ansible.builtin.shell:
+        cmd: rm -rf /etc/yum.repos.d/RHEL_9.3_*
+    
+    - name: Remove the Apache package
+      ansible.builtin.dnf:
+        name: httpd
+        state: absent

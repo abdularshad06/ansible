@@ -1,0 +1,64 @@
+---
+- name: Set up RHEL 9.3 local repositories using a remote repository server
+  hosts: node1
+  become: yes
+
+  vars:
+    repository_server_ip: "10.125.108.18"
+    repo_name_baseos: "RHEL_9.3_BaseOS"
+    repo_name_appstream: "RHEL_9.3_AppStream"
+    repo_url_http_baseos: "http://{{ repository_server_ip }}/rhel9_repo/BaseOS"
+    repo_url_http_appstream: "http://{{ repository_server_ip }}/rhel9_repo/AppStream"
+    repo_url_ftp_baseos: "ftp://{{ repository_server_ip }}/pub/rhel9_repo/BaseOS"
+    repo_url_ftp_appstream: "ftp://{{ repository_server_ip }}/pub/rhel9_repo/AppStream"
+
+  tasks:
+    - name: Configure BaseOS repository using FTP URL
+      ansible.builtin.yum_repository:
+        file: "{{ repo_name_baseos }}"
+        name: "{{ repo_name_baseos }}_FTP"
+        description: RHEL 9.3 BaseOS Repository (FTP)
+        baseurl: "{{ repo_url_ftp_baseos }}"
+        enabled: yes
+        gpgcheck: no
+
+    - name: Configure BaseOS repository using HTTP URL
+      ansible.builtin.yum_repository:
+        file: "{{ repo_name_baseos }}"
+        name: "{{ repo_name_baseos }}_HTTP"
+        description: RHEL 9.3 BaseOS Repository (HTTP)
+        baseurl: "{{ repo_url_http_baseos }}"
+        enabled: yes
+        gpgcheck: no
+
+    - name: Configure AppStream repository using FTP URL
+      ansible.builtin.yum_repository:
+        file: "{{ repo_name_appstream }}"
+        name: "{{ repo_name_appstream }}_FTP"
+        description: RHEL 9.3 AppStream Repository (FTP)
+        baseurl: "{{ repo_url_ftp_appstream }}"
+        enabled: yes
+        gpgcheck: no
+
+    - name: Configure AppStream repository using HTTP URL
+      ansible.builtin.yum_repository:
+        file: "{{ repo_name_appstream }}"
+        name: "{{ repo_name_appstream }}_HTTP"
+        description: RHEL 9.3 AppStream Repository (HTTP)
+        baseurl: "{{ repo_url_http_appstream }}"
+        enabled: yes
+        gpgcheck: no
+
+    - name: Clean YUM cache
+      command: yum clean all
+
+    - name: Update YUM metadata cache
+      command: yum makecache
+
+    - name: Verify the repository and list groups
+      command: yum grouplist
+      register: yum_grouplist
+      ignore_errors: yes
+
+    - debug:
+        msg: "{{ yum_grouplist.stdout }}"
