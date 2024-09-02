@@ -1,0 +1,86 @@
+---
+- name: Configure NFS Server
+  hosts: localhost
+  become: yes
+
+  vars:
+    nfs_export_dir: "/var/ftp/pub/rhel9_repo/"
+    nfs_export_options: "*(ro,sync,no_root_squash)"
+    nfs_mount_dir: "/mnt/nfs_share"
+    nfs_server_ip: "10.125.108.18"  # Update with the actual IP of the NFS server
+
+  tasks:
+    - name: Install NFS packages on the server
+      ansible.builtin.yum:
+        name: nfs-utils
+        state: present
+      #when: "'nfs_server' in group_names"
+
+    - name: Ensure the NFS export directory exists on the server
+      ansible.builtin.file:
+        path: "{{ nfs_export_dir }}"
+        state: directory
+      #when: "'nfs_server' in group_names"
+
+    - name: Configure NFS export
+      ansible.builtin.lineinfile:
+        path: /etc/exports
+        line: "{{ nfs_export_dir }} {{ nfs_export_options }}"
+        create: yes
+      #when: "'nfs_server' in group_names"
+
+    - name: Export the NFS share and reload the NFS server
+      ansible.builtin.command:
+        cmd: exportfs -arv
+      #when: "'nfs_server' in group_names"
+
+    - name: Start and enable NFS services on the server
+      ansible.builtin.systemd:
+        name: nfs-server
+        state: started
+        enabled: yes
+      #when: "'nfs_server' in group_names"
+
+# Next Play
+
+- name: Client
+  hosts: node1
+  become: yes
+
+  vars:
+    nfs_mount_dir: "/mnt/nfs_share"
+    nfs_server_ip: "10.125.108.18"  # Update with the actual IP of the NFS server
+    nfs_export_dir: "/var/ftp/pub/rhel9_repo/"
+
+  tasks:    
+    
+    - name: Install NFS packages on the client
+      ansible.builtin.yum:
+        name: nfs-utils
+        state: present
+      #when: "'nfs_client' in group_names"
+
+    - name: Ensure the NFS mount directory exists on the client
+      ansible.builtin.file:
+        path: "{{ nfs_mount_dir }}"
+        state: directory
+      #when: "'nfs_client' in group_names"
+
+    # ansible-galaxy collection install ansible.posix   # Install ansible.posix module before run this code
+    - name: Mount the NFS share on the client
+      ansible.posix.mount:
+        path: "{{ nfs_mount_dir }}"
+        src: "{{ nfs_server_ip }}:{{ nfs_export_dir }}"
+        fstype: nfs
+        opts: defaults
+        state: mounted
+      #when: "'nfs_client' in group_names"
+
+    - name: Ensure the NFS share is mounted at boot
+      ansible.posix.mount:
+        path: "{{ nfs_mount_dir }}"
+        src: "{{ nfs_server_ip }}:{{ nfs_export_dir }}"
+        fstype: nfs
+        opts: defaults
+        state: present
+      #when: "'nfs_client' in group_names"

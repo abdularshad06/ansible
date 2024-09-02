@@ -1,0 +1,4 @@
+ansible$ ansible-galaxy collection install ansible.posix
+ansible-playbook -i ../join_local_repository_on_RHEL9.3/inventory.ini install_pre_requisite.yml
+ansible-playbook -i ../join_local_repository_on_RHEL9.3/inventory.ini main.yml
+ansible-playbook -i ../join_local_repository_on_RHEL9.3/inventory.ini revert.yml

@@ -1,0 +1,15 @@
+---
+- name: Ensure necessary Ansible Galaxy collections are installed
+  hosts: localhost
+  #become: yes
+
+  tasks:
+    - name: Install collections from requirements.yml if missing
+      command: ansible-galaxy collection install -r requirements.yml
+
+    - name: Install collections from requirements.yml if missing
+      command: ansible-galaxy collection install ansible.posix
+
+    - name: Proceed with playbook tasks after ensuring collections are installed
+      debug:
+        msg: "All required collections are installed."

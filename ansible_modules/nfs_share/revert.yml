@@ -1,0 +1,24 @@
+---
+- name: Revert Unmount NFS Share
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Remove Ansible Collection
+      ansible.builtin.shell:
+        cmd: rm -rf /root/.ansible/collections/ansible_collections/*
+
+    - name: Remove Ansible Collection
+      ansible.builtin.shell:
+        cmd: rm -rf /home/ansible/.ansible/collections/ansible_collections/*
+
+# Next Play
+
+- name: Revert Unmount NFS Share
+  hosts: node1
+  become: yes
+
+  tasks:
+    - name: Umount /nfs/mnt/nfs_share
+      ansible.builtin.shell:
+        cmd: sudo umount /mnt/nfs_share
