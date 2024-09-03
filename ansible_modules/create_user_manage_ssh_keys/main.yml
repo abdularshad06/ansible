@@ -1,0 +1,42 @@
+---
+- name: User Management Playbook
+  hosts: node1
+  become: yes  # Ensure the tasks are run with root privileges
+  vars:
+    users:
+      - username: user1
+        group: admin
+        home: /home/user1
+        ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzdYesIl8GOg4AQ7XfAtEi5c7Q/EVIccXNWfCtuMKCpacdrogcFzaYMJjrUqjN9i34BOMEU8Ooqo9Eri9y8H+Fjb15yyl9xNu+abuTa/W5dVTbLVq68eG4fKyk/N76m7lvFm7p3dxHr6KCzMeHZdqLATB2wk4rarzYuSuEevuhxakP8EkMDWaKNQCHCky2nHfocXug1iJgtkbMI91H7ojaqi8/AFX2XWwIYe4a0Pe42k6fXMvmZW61Q8kZrsZXJ4bF1pYu++CM0a4Q0u5x7ijBjH8Yx5TWVVeNefwyx+bt1/mKtIxoaGKwnlAQcZ6kotJgGcYLvUiGNITFyZzmdUB8j/xhqyH0+FCDtyZAwGxwnlr7x/8vOSBfsFBuK5NfncOjy3OYdtiTvqaeGUHUDwbZY7O+Q2GzVCPW+njucKUhDQ5LSt2f7qQtRfO+et9pYGRHTA69x3dI8FrG8aVb/a26pL3ESmof2/oa9X01Y74YtNi2Wr7ebZP3rNxqEzQSOm8= ansible@ansible.example.com"
+      - username: user2
+        group: developers 
+        home: /home/user2
+        ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzdYesIl8GOg4AQ7XfAtEi5c7Q/EVIccXNWfCtuMKCpacdrogcFzaYMJjrUqjN9i34BOMEU8Ooqo9Eri9y8H+Fjb15yyl9xNu+abuTa/W5dVTbLVq68eG4fKyk/N76m7lvFm7p3dxHr6KCzMeHZdqLATB2wk4rarzYuSuEevuhxakP8EkMDWaKNQCHCky2nHfocXug1iJgtkbMI91H7ojaqi8/AFX2XWwIYe4a0Pe42k6fXMvmZW61Q8kZrsZXJ4bF1pYu++CM0a4Q0u5x7ijBjH8Yx5TWVVeNefwyx+bt1/mKtIxoaGKwnlAQcZ6kotJgGcYLvUiGNITFyZzmdUB8j/xhqyH0+FCDtyZAwGxwnlr7x/8vOSBfsFBuK5NfncOjy3OYdtiTvqaeGUHUDwbZY7O+Q2GzVCPW+njucKUhDQ5LSt2f7qQtRfO+et9pYGRHTA69x3dI8FrG8aVb/a26pL3ESmof2/oa9X01Y74YtNi2Wr7ebZP3rNxqEzQSOm8= ansible@ansible.example.com"
+      - username: user3
+        group: support
+        home: /home/user3
+        ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzdYesIl8GOg4AQ7XfAtEi5c7Q/EVIccXNWfCtuMKCpacdrogcFzaYMJjrUqjN9i34BOMEU8Ooqo9Eri9y8H+Fjb15yyl9xNu+abuTa/W5dVTbLVq68eG4fKyk/N76m7lvFm7p3dxHr6KCzMeHZdqLATB2wk4rarzYuSuEevuhxakP8EkMDWaKNQCHCky2nHfocXug1iJgtkbMI91H7ojaqi8/AFX2XWwIYe4a0Pe42k6fXMvmZW61Q8kZrsZXJ4bF1pYu++CM0a4Q0u5x7ijBjH8Yx5TWVVeNefwyx+bt1/mKtIxoaGKwnlAQcZ6kotJgGcYLvUiGNITFyZzmdUB8j/xhqyH0+FCDtyZAwGxwnlr7x/8vOSBfsFBuK5NfncOjy3OYdtiTvqaeGUHUDwbZY7O+Q2GzVCPW+njucKUhDQ5LSt2f7qQtRfO+et9pYGRHTA69x3dI8FrG8aVb/a26pL3ESmof2/oa9X01Y74YtNi2Wr7ebZP3rNxqEzQSOm8= ansible@ansible.example.com"
+
+  tasks:
+
+    - name: Ensure the groups exist
+      ansible.builtin.group:
+        name: "{{ item.group }}"
+        state: present
+      loop: "{{ users }}"
+
+    - name: Create users with specific home directories and groups
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        group: "{{ item.group }}"
+        home: "{{ item.home }}"
+        state: present
+        createhome: yes
+      loop: "{{ users }}"
+
+    - name: Deploy SSH keys for passwordless authentication
+      ansible.builtin.authorized_key:
+        user: "{{ item.username }}"
+        key: "{{ item.ssh_key }}"
+        state: present
+      loop: "{{ users }}"
